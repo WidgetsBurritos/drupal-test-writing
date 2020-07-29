@@ -1,0 +1,40 @@
+name: CI
+
+on:
+  push:
+    branches: [ 9.x ]
+  pull_request:
+    branches: [ 9.x ]
+
+jobs:
+  phpunit:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: jonaseberle/github-action-setup-ddev@v1
+    - name: Install dependencies
+      run: ddev composer install
+    - name: Run phpunit tests on custom module
+      run: ddev exec php core/scripts/run-tests.sh --color --verbose --sqlite /tmp/a.sqlite my_testing_module
+  nightwatch:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: jonaseberle/github-action-setup-ddev@v1
+    - name: Install php dependencies
+      run: ddev composer install
+    - name: Install node dependencies
+      run: ddev exec -d /var/www/html/web/core yarn install
+    - name: Run nightwatch tests on custom module
+      run: ddev exec -d /var/www/html/web/core yarn test:nightwatch ../modules/custom/my_testing_module/tests/src/Nightwatch
+  behat:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: jonaseberle/github-action-setup-ddev@v1
+    - name: Install dependencies
+      run: ddev composer install
+    - name: Install Drupal
+      run: ddev exec drush si my_profile --config-dir=../config/sync --account-pass=admin -y
+    - name: Run behat tests on site
+      run: ddev exec -d /var/www/html vendor/bin/behat
