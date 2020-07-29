@@ -1,0 +1,17 @@
+my_testing_module.my_message:
+  path: 'my-message'
+  defaults:
+    _controller: '\Drupal\my_testing_module\Controller\MyMessageController::displayMessage'
+    _title_callback: '\Drupal\my_testing_module\Controller\MyMessageController::title'
+  requirements:
+    _permission: 'access content'
+
+my_testing_module.settings:
+  path: 'admin/config/system/my_testing_module/settings'
+  defaults:
+    _form: '\Drupal\my_testing_module\Form\MySettingsForm'
+    _title: 'My Testing Module Settings'
+  requirements:
+    _permission: 'access content'
+  options:
+    _admin_route: TRUE

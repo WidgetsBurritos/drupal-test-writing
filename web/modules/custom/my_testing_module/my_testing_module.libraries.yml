@@ -1,0 +1,5 @@
+my_message_logging:
+  dependencies:
+    - core/drupal
+  js:
+    js/myMessageLogging.js: {}

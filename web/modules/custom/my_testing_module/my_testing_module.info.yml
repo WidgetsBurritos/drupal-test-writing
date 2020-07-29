@@ -1,0 +1,7 @@
+name: My Testing Module
+type: module
+description: 'Module built for practicing test writing and running.'
+package: Custom
+core_version_requirement: ^9
+dependencies:
+  - drupal:node

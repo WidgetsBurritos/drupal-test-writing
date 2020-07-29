@@ -1,0 +1,10 @@
+uuid: 838cc0e4-3b9d-46e1-a35f-9e834f64d9dd
+langcode: en
+status: true
+dependencies: {  }
+id: yet_another_role
+label: 'Yet Another Role'
+weight: 4
+is_admin: null
+permissions:
+  - 'yet another privilege'

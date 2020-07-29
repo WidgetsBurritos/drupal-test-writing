@@ -1,0 +1,6 @@
+rs.settings:
+  title: 'My Testing Module'
+  route_name: my_testing_module.settings
+  description: 'Custom settings for my testing module'
+  parent: system.admin_config_system
+  weight: -100
