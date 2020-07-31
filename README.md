@@ -6,6 +6,8 @@ This is a test D9 site which can be used for practicing test writing and running
 
 This project uses DDEV. Follow these [instructions for installing DDEV on your local system](https://ddev.readthedocs.io/en/stable/#installation).
 
+_Note: If you want to improve performance of test running on MacOS, follow the [instructions for using the new experimental mutagen functionality in Docker Desktop with DDEV](https://github.com/drud/ddev/issues/2278)._
+
 ## Getting Started
 
 1. Clone this repo locally.
@@ -18,19 +20,19 @@ This project uses DDEV. Follow these [instructions for installing DDEV on your l
     ddev start
     ```
 
-    _Note: The first time `ddev start` is run, it will install a database snapshot, located at `snapshot/dump.sql.gz`. This is a very simple Drupal 9 website. Any subsequent runs will keep your database intact, unless you manually remove it._
-3. Install dependencies
-    ```bash
-    ddev composer install
-    ddev exec -d /var/www/html/web/core yarn install
-    ```
+    The first time `ddev start` is run, it will do a few different things, which can be found in [scripts/post-start.sh](scripts/post-start.sh).
 
-    _Note: `composer install` injects a `.env` and `phpunit.xml` file into your `web/core` folder based on the templates in `templates/core.env` and `templates/core.phpunit.xml` respectively (see `scripts/post-install.sh`). This is for convenience for this project. In a real project, you would want to ensure those files are handled properly and securely. See `web/core/.env.example` and `web/core/phpunit.xml.dist` for more information about those files._
-5. Back in your normal terminal, open the site in your browser:
+    1. Install a very simple D9 website, based on the snapshot located at `snapshot/dump.sql.gz`.
+        Any subsequent `ddev start` runs will keep your database intact, unless you manually remove it.
+    2. Install all PHP dependencies via composer.
+    3. Inject a `.env` and `phpunit.xml` file in your `web/core` directory, based on the templates in `templates/core.env` and `templates/core.phpunit.xml` respectively. In a real project, you would want to ensure those files are handled properly and securely. See `web/core/.env.example` and `web/core/phpunit.xml.dist` for more information about those files.
+    4. Install all Node.js dependencies inside the `web/core` directory. This is needed for nightwatch tests to run.
+
+2. Open the site in your browser:
     ```bash
     ddev launch
     ```
-6. You can then use the following sample credentials to test out various roles:
+3. You can then use the following sample credentials to test out various roles:
 
     1. `admin`/`admin` - Has all the privileges
     2. `bobby`/`bobby` - Has the `My Super Secret Privilege` permission

@@ -1,0 +1,8 @@
+version: '3.6'
+services:
+  web:
+    volumes:
+    - type: bind
+      source: ../
+      target: /var/www/html
+      consistency: delegated
