@@ -5,5 +5,23 @@ definitions:
     parent: ''
     weight: 0
     expanded: false
+  node__add_page:
+    weight: -49
+    menu_name: tools
+    parent: ''
+    enabled: true
+    expanded: false
+  filter__tips_all:
+    weight: -48
+    menu_name: tools
+    parent: ''
+    expanded: false
+    enabled: false
+  search__view:
+    weight: -47
+    menu_name: tools
+    parent: ''
+    expanded: false
+    enabled: false
 _core:
   default_config_hash: o4bYR9ZupWb3AsOIizTUG4g-nu1mdJqA59UB7QT-ifQ

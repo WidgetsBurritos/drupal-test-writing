@@ -11,6 +11,9 @@ additional_fqdns: []
 mariadb_version: "10.3"
 provider: default
 use_dns_when_possible: true
+hooks:
+  post-start:
+  - exec: ../scripts/post-start.sh
 
 
 # This config.yaml was created with ddev version v1.15.2

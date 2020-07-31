@@ -34,7 +34,5 @@ jobs:
     - uses: jonaseberle/github-action-setup-ddev@v1
     - name: Install dependencies
       run: ddev composer install
-    - name: Install Drupal
-      run: ddev exec drush si my_profile --config-dir=../config/sync --account-pass=admin -y
     - name: Run behat tests on site
       run: ddev exec -d /var/www/html vendor/bin/behat

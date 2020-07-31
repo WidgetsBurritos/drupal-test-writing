@@ -4,43 +4,38 @@ This is a test D9 site which can be used for practicing test writing and running
 
 ## Dependencies
 
-This project uses ddev. Follow these [instructions for installing ddev on your local system](https://ddev.readthedocs.io/en/stable/#installation).
+This project uses DDEV. Follow these [instructions for installing DDEV on your local system](https://ddev.readthedocs.io/en/stable/#installation).
 
 ## Getting Started
 
-1. Fork this repo.
-2. Clone your fork locally and change into that directory.
-3. Start `ddev`
+1. Clone this repo locally.
+    ```bash
+    git clone git@github.com:WidgetsBurritos/drupal-test-writing.git
+    ```
+
+2. Start `ddev`
     ```bash
     ddev start
     ```
-4. Install dependencies
+
+    _Note: The first time `ddev start` is run, it will install a database snapshot, located at `snapshot/dump.sql.gz`. This is a very simple Drupal 9 website. Any subsequent runs will keep your database intact, unless you manually remove it._
+3. Install dependencies
     ```bash
     ddev composer install
+    ddev exec -d /var/www/html/web/core yarn install
     ```
 
-    _Note: This injects a `.env` and `phpunit.xml` file into your `web/core` folder based on the templates in `templates/core.env` and `templates/core.phpunit.xml` respectively. This is for convenience for this project. In a real project, you would want to ensure those files are handled securely. See `web/core/.env.example` and `web/core/phpunit.xml.dist` for more information about those files._
-5. Perform a basic site install and setup some basic users
-    ```bash
-    ddev exec drush si my_profile --config-dir=../config/sync --account-pass=admin -y
-    ddev exec drush user:create bobby --mail="bobby@example.com" --password="bobby"
-    ddev exec drush user:create carol --mail="carol@example.com" --password="carol"
-    ddev exec drush user:create david --mail="david@example.com" --password="david"
-    ddev exec drush user-add-role "administrator" admin
-    ddev exec drush user-add-role "super_secret" bobby
-    ddev exec drush user-add-role "yet_another_role" carol    
-    ```
-8. Back in your normal terminal, open the site in your browser:
+    _Note: `composer install` injects a `.env` and `phpunit.xml` file into your `web/core` folder based on the templates in `templates/core.env` and `templates/core.phpunit.xml` respectively (see `scripts/post-install.sh`). This is for convenience for this project. In a real project, you would want to ensure those files are handled properly and securely. See `web/core/.env.example` and `web/core/phpunit.xml.dist` for more information about those files._
+5. Back in your normal terminal, open the site in your browser:
     ```bash
     ddev launch
     ```
+6. You can then use the following sample credentials to test out various roles:
 
-You can then use the following sample credentials to test out various roles:
-
-1. `admin`/`admin` - Has all the privileges
-2. `bobby`/`bobby` - Has the `super_secret` role
-3. `carol`/`carol` - Has the `yet_another_role` role
-4. `david`/`david` - Has no roles set
+    1. `admin`/`admin` - Has all the privileges
+    2. `bobby`/`bobby` - Has the `My Super Secret Privilege` permission
+    3. `carol`/`carol` - Has the `Yet Another Privilege` permission
+    4. `david`/`david` - Has no roles or permissions set
 
 ## What We're Testing
 
