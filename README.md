@@ -89,9 +89,9 @@ Running every test, all the time, can sometimes take a while. If you want to foc
   ```bash
   php core/scripts/run-tests.sh --color --verbose --sqlite /tmp/a.sqlite --class 'Drupal\Tests\my_testing_module\Functional\MyFunctionalTest'
   ```
-- *From outside the ddev container (_Note you have to escape the slashes_):*
+- *From outside the ddev container:* (note the double-quotes on the `ddev exec` command)
   ```bash
-  ddev exec php core/scripts/run-tests.sh --color --verbose --sqlite /tmp/a.sqlite --class 'Drupal\\Tests\\my_testing_module\\Functional\\MyFunctionalTest'
+  ddev exec "php core/scripts/run-tests.sh --color --verbose --sqlite /tmp/a.sqlite --class 'Drupal\Tests\my_testing_module\Functional\MyFunctionalTest'"
   ```
 
 ### Nightwatch.js (Javascript Testing)
@@ -134,21 +134,19 @@ ddev exec -d /var/www/html/web/core yarn test:nightwatch ../modules/custom/my_te
 #### Run all behat tests
 - *From inside the ddev container (i.e. after running `ddev ssh`):*
 ```bash
-cd /var/www/html
-vendor/bin/behat
+cd /var/www/html && behat
 ```
 - *From outside the ddev container (_Note you have to specify which directory to run inside using the `-d` flag, and all other paths are relative to that_):*
 ```bash
-ddev exec -d /var/www/html vendor/bin/behat
+ddev exec -d /var/www/html behat
 ```
 
 #### Run specific behat tests
 - *From inside the ddev container (i.e. after running `ddev ssh`):*
 ```bash
-cd /var/www/html
-vendor/bin/behat features/drupal/cache.feature
+cd /var/www/html && behat features/drupal/cache.feature
 ```
 - *From outside the ddev container (_Note you have to specify which directory to run inside using the `-d` flag, and all other paths are relative to that_):*
 ```bash
-ddev exec -d /var/www/html vendor/bin/behat
+ddev exec -d /var/www/html behat
 ```
