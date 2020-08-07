@@ -5,9 +5,9 @@ This is a test D9 site which can be used for practicing test writing and running
 ## Dependencies
 
 - Docker 18.06+ - [Instructions for installing Docker on your local system](https://docs.docker.com/engine/install/)
-- DDEV - [Instructions for installing DDEV on your local system](https://ddev.readthedocs.io/en/stable/#installation).
+- Latest version of DDEV-Local - [Instructions for installing DDEV on your local system](https://ddev.readthedocs.io/en/stable/).
 
-_Note: If you want to improve performance of test running on MacOS, follow the [instructions for using the new experimental mutagen functionality in Docker Desktop with DDEV](https://github.com/drud/ddev/issues/2278)._
+_Note: If you want to improve performance of test running on MacOS, follow the [instructions for using the new experimental mutagen functionality in Docker Desktop with DDEV-Local](https://github.com/drud/ddev/issues/2278)._
 
 ## Getting Started
 
@@ -26,7 +26,7 @@ _Note: If you want to improve performance of test running on MacOS, follow the [
     cd drupal-test-writing
     ```
 
-2. Start `ddev`
+2. Start DDEV-Local
     ```bash
     ddev start
     ```
@@ -100,11 +100,11 @@ There are a [few different ways to run PHPUnit tests](https://www.drupal.org/doc
 #### Run all PHPUnit tests:
 If you want to run all PHPUnit-based tests for your module, you can do so with one of the following commands:
 
-- *From inside the ddev container (i.e. after running `ddev ssh`):*
+- *From inside the DDEV-Local container (i.e. after running `ddev ssh`):*
   ```bash
   php core/scripts/run-tests.sh --color --verbose --sqlite /tmp/a.sqlite my_testing_module
   ```
-- *From outside the ddev container:*
+- *From outside the DDEV-Local container:*
   ```bash
   ddev exec php core/scripts/run-tests.sh --color --verbose --sqlite /tmp/a.sqlite my_testing_module
   ```
@@ -115,11 +115,11 @@ _Note: We're using the `--sqlite` flag. When the test runner bootstraps Drupal, 
 
 Running every test, all the time, can sometimes take a while. If you want to focus on a specific test you can do so by using the `--class` flag instead:
 
-- *From inside the ddev container (i.e. after running `ddev ssh`):*
+- *From inside the DDEV-Local container (i.e. after running `ddev ssh`):*
   ```bash
   php core/scripts/run-tests.sh --color --verbose --sqlite /tmp/a.sqlite --class 'Drupal\Tests\my_testing_module\Functional\MyFunctionalTest'
   ```
-- *From outside the ddev container:* (note the double-quotes on the `ddev exec` command)
+- *From outside the DDEV-Local container:* (note the double-quotes on the `ddev exec` command)
   ```bash
   ddev exec "php core/scripts/run-tests.sh --color --verbose --sqlite /tmp/a.sqlite --class 'Drupal\Tests\my_testing_module\Functional\MyFunctionalTest'"
   ```
@@ -128,31 +128,31 @@ Running every test, all the time, can sometimes take a while. If you want to foc
 
 [Nightwatch.js](https://nightwatchjs.org/) is a tool used for javascript testing in Drupal.
 
-To add support for nightwatch testing in DDEV, a [docker-compose.chromedriver.yml]() file must be added into your `.ddev` directory.
+To add support for nightwatch testing in DDEV-Local, a [docker-compose.chromedriver.yml]() file must be added into your `.ddev` directory.
 
 Read Matt Glaman's [Running Drupal's Nightwatch test suite on DDEV](https://glamanate.com/blog/running-drupals-nightwatch-test-suite-ddev) article for more information about setting this up.
 
 #### Run all Nightwatch.js tests
 
-- *From inside the ddev container (i.e. after running `ddev ssh`):*
+- *From inside the DDEV-Local container (i.e. after running `ddev ssh`):*
   ```bash
   cd /var/www/html/web/core
   yarn test:nightwatch ../modules/custom/my_testing_module/tests/src/Nightwatch
   ```
 
-- *From outside the ddev container (_Note: You have to specify which directory to run inside using the `-d` flag, and all other paths are relative to that_):*
+- *From outside the DDEV-Local container (_Note: You have to specify which directory to run inside using the `-d` flag, and all other paths are relative to that_):*
   ```bash
   ddev exec -d /var/www/html/web/core yarn test:nightwatch ../modules/custom/my_testing_module/tests/src/Nightwatch
   ```
 
 #### Run specific Nightwatch.js tests
 
-- *From inside the ddev container (i.e. after running `ddev ssh`):*
+- *From inside the DDEV-Local container (i.e. after running `ddev ssh`):*
 ```bash
 cd /var/www/html/web/core
 yarn test:nightwatch ../modules/custom/my_testing_module/tests/src/Nightwatch/MyNightwatchTest.js
 ```
-- *From outside the ddev container (_Note you have to specify which directory to run inside using the `-d` flag, and all other paths are relative to that_):*
+- *From outside the DDEV-Local container (_Note you have to specify which directory to run inside using the `-d` flag, and all other paths are relative to that_):*
 ```bash
 ddev exec -d /var/www/html/web/core yarn test:nightwatch ../modules/custom/my_testing_module/tests/src/Nightwatch/MyNightwatchTest.js
 ```
@@ -162,21 +162,21 @@ ddev exec -d /var/www/html/web/core yarn test:nightwatch ../modules/custom/my_te
 [Behat](https://docs.behat.org/en/latest/) is a tool for behavorial testing in Drupal.
 
 #### Run all behat tests
-- *From inside the ddev container (i.e. after running `ddev ssh`):*
+- *From inside the DDEV-Local container (i.e. after running `ddev ssh`):*
 ```bash
 cd /var/www/html && behat
 ```
-- *From outside the ddev container (_Note you have to specify which directory to run inside using the `-d` flag, and all other paths are relative to that_):*
+- *From outside the DDEV-Local container (_Note you have to specify which directory to run inside using the `-d` flag, and all other paths are relative to that_):*
 ```bash
 ddev exec -d /var/www/html behat
 ```
 
 #### Run specific behat tests
-- *From inside the ddev container (i.e. after running `ddev ssh`):*
+- *From inside the DDEV-Local container (i.e. after running `ddev ssh`):*
 ```bash
 cd /var/www/html && behat features/drupal/cache.feature
 ```
-- *From outside the ddev container (_Note you have to specify which directory to run inside using the `-d` flag, and all other paths are relative to that_):*
+- *From outside the DDEV-Local container (_Note you have to specify which directory to run inside using the `-d` flag, and all other paths are relative to that_):*
 ```bash
 ddev exec -d /var/www/html behat
 ```
