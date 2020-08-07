@@ -4,7 +4,7 @@ on:
   push:
     branches: [ 9.x ]
   pull_request:
-    branches: [ 9.x ]
+    branches: [ '*' ]
 
 jobs:
   phpunit:
