@@ -4,7 +4,8 @@ This is a test D9 site which can be used for practicing test writing and running
 
 ## Dependencies
 
-This project uses DDEV. Follow these [instructions for installing DDEV on your local system](https://ddev.readthedocs.io/en/stable/#installation).
+- Docker 18.06+ - [Instructions for installing Docker on your local system](https://docs.docker.com/engine/install/)
+- DDEV - [Instructions for installing DDEV on your local system](https://ddev.readthedocs.io/en/stable/#installation).
 
 _Note: If you want to improve performance of test running on MacOS, follow the [instructions for using the new experimental mutagen functionality in Docker Desktop with DDEV](https://github.com/drud/ddev/issues/2278)._
 
@@ -15,29 +16,59 @@ _Note: If you want to improve performance of test running on MacOS, follow the [
     git clone git@github.com:WidgetsBurritos/drupal-test-writing.git
     ```
 
+    If you run into a permission denied error with the command above, try using https instead:
+    ```bash
+    git clone https://github.com/WidgetsBurritos/drupal-test-writing.git
+    ```
+
+    Then you will need to change into that directory:
+    ```bash
+    cd drupal-test-writing
+    ```
+
 2. Start `ddev`
     ```bash
     ddev start
     ```
 
-    The first time `ddev start` is run, it will do a few different things, which can be found in [scripts/post-start.sh](scripts/post-start.sh).
+    The very first time `ddev start` is run, it will do a few different things, which can be found in [scripts/post-start.sh](scripts/post-start.sh):
 
     1. Install a very simple D9 website, based on the snapshot located at `snapshot/dump.sql.gz`.
         Any subsequent `ddev start` runs will keep your database intact, unless you manually remove it.
     2. Install all PHP dependencies via composer.
     3. Inject a `.env` and `phpunit.xml` file in your `web/core` directory, based on the templates in `templates/core.env` and `templates/core.phpunit.xml` respectively. In a real project, you would want to ensure those files are handled properly and securely. See `web/core/.env.example` and `web/core/phpunit.xml.dist` for more information about those files.
     4. Install all Node.js dependencies inside the `web/core` directory. This is needed for nightwatch tests to run.
+    5. Clear the Drupal cache.
 
-2. Open the site in your browser:
+3. Open the site in your browser:
     ```bash
     ddev launch
     ```
-3. You can then use the following sample credentials to test out various roles:
+4. You can then use the following sample credentials to test out various roles:
 
     1. `admin`/`admin` - Has all the privileges
     2. `bobby`/`bobby` - Has the `My Super Secret Privilege` permission
     3. `carol`/`carol` - Has the `Yet Another Privilege` permission
     4. `david`/`david` - Has no roles or permissions set
+
+5. Verify everything is running properly:
+
+    ```bash
+    ddev composer check:everything
+    ```
+
+    If everything is working correctly, you should see a response like this:
+
+    > Attempting to load Drupal:\
+    > ✓ Success\
+    > Attempting to run Drupal tests:\
+    > ✓ Success\
+    > Attempting to run behat tests:\
+    > ✓ Success\
+    > Attempting to run nightwatch.js tests:\
+    > \- Connecting to chromedriver on port 9515...\
+    > ℹ Connected to chromedriver on port 9515 (226ms).\
+    > ✓ Success
 
 ## What We're Testing
 
@@ -57,7 +88,6 @@ This module _should_ do the following when you navigate to `/my-message`:
       - It's actually only showing one of these messages.
   5. If a user is not logged in, they should get an access forbidden error.
       - It's actually showing them the message shown to authenticated users.
-
 
 ## Test Runners
 

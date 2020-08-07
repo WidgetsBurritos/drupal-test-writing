@@ -88,5 +88,8 @@
         "drupal/core-dev": "^9.0",
         "drupal/drupal-extension": "^4.1",
         "drush/drush": "^10.3"
+    },
+    "scripts": {
+        "check:everything": "./scripts/check-everything.sh"
     }
 }
