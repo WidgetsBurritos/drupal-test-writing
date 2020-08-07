@@ -89,18 +89,22 @@ class MyMessageController extends ControllerBase implements ContainerInjectionIn
    *   User message.
    */
   public function getMessageForUser(AccountInterface $user) {
+    $messages = [$this->t('You are logged in.')];
+    $has_elevated_permission = FALSE;
     if ($user->hasPermission('my super secret privilege')) {
       $this->log('info', 'super secret privilege granted');
-      return $this->t("You aren't all that special.");
+      $has_elevated_permission = TRUE;
+      $messages[] = $this->t('You are special.');
     }
-    elseif ($user->hasPermission('yet another privilege')) {
+    if ($user->hasPermission('yet another privilege')) {
       $this->log('info', 'yet another privilege granted');
-      return $this->t('You have yet another privilege.');
+      $has_elevated_permission = TRUE;
+      $messages[] = $this->t('You have yet another privilege.');
     }
-    else {
+    if (!$has_elevated_permission) {
       $this->log('warning', 'unprivileged access');
     }
-    return $this->t('You might be logged in.');
+    return implode('<br>', $messages);
   }
 
   /**
