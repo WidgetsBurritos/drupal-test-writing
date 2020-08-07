@@ -3,3 +3,6 @@ my_message_logging:
     - core/drupal
   js:
     js/myMessageLogging.js: {}
+  css:
+    theme:
+      css/admin.css: {}
