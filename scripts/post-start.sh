@@ -18,4 +18,8 @@ else
   echo "Downloading Node dependencies..."
   cd /var/www/html/web/core
   yarn install
+
+  echo "Clearing cache..."
+  cd /var/www/html
+  drush cr
 fi
