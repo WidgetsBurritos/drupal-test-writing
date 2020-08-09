@@ -1,4 +1,4 @@
-# Test D9 Site
+# Drupal Test Writing
 
 This is a test D9 site which can be used for practicing test writing and running. This is to be used in tandem with the [Drupal Testing Crash Course](https://2020.drupalcampcolorado.org/trainings/drupal-testing-crash-course) training at DrupalCamp Colorado.
 
@@ -11,7 +11,7 @@ _Note: If you want to improve performance of test running on MacOS, follow the [
 
 ## Getting Started
 
-1. Clone this repo locally.
+1. Clone this repo locally. (Note: You may want to consider forking this repo instead of directly cloning if you wish to open pull requests)
     ```bash
     git clone git@github.com:WidgetsBurritos/drupal-test-writing.git
     ```
