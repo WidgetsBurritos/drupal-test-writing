@@ -4,7 +4,7 @@ my_testing_module.my_message:
     _controller: '\Drupal\my_testing_module\Controller\MyMessageController::displayMessage'
     _title_callback: '\Drupal\my_testing_module\Controller\MyMessageController::title'
   requirements:
-    _permission: 'access content'
+    _role: 'authenticated'
 
 my_testing_module.settings:
   path: 'admin/config/system/my_testing_module/settings'
