@@ -89,6 +89,15 @@ This module _should_ do the following when you navigate to `/my-message`:
   5. If a user is not logged in, they should get an access forbidden error.
       - It's actually showing them the message shown to authenticated users.
 
+## Labs
+
+The following labs are available to help provide some test writing examples:
+
+1. [Writing unit tests with PHPUnit](/WidgetsBurritos/drupal-test-writing/wiki/Lab-%231:--Writing-unit-tests)
+2. [Writing kernel tests with PHPUnit](/WidgetsBurritos/drupal-test-writing/wiki/Lab-%232:-Writing-kernel-tests)
+3. [Writing system tests with PHPUnit and Nightwatch.js](/WidgetsBurritos/drupal-test-writing/wiki/Lab-%233:-Writing-system-tests-with-BrowserTestBase-and-Nightwatch.js)
+4. [Writing acceptance tests with behat](/WidgetsBurritos/drupal-test-writing/wiki/Lab-%234:-Writing-acceptance-tests-with-behat)
+
 ## Test Runners
 
 ### PHPUnit (PHP Testing)
