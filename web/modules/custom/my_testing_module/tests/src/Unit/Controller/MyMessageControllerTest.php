@@ -75,4 +75,110 @@ class MyMessageControllerTest extends UnitTestCase {
     $this->assertEquals($expected, $controller->title());
   }
 
+
+  /**
+   * Confirms controller message is correct for users with my super secret privs.
+   *
+   * @covers \Drupal\my_testing_module\Controller\MyMessageController::getMessageForUser
+   */
+  public function testGetMessageForMySuperSecretPrivilegeIsCorrect() {
+    $map = [
+      ['my super secret privilege', TRUE],
+      ['yet another privilege', FALSE],
+    ];
+    $this->user->expects($this->exactly(2))
+      ->method('hasPermission')
+      ->withConsecutive(
+          [$this->equalTo('my super secret privilege')],
+          [$this->equalTo('yet another privilege')],
+        )
+      ->will($this->returnValueMap($map));
+    $controller = new MyMessageController($this->user, $this->config_factory, $this->logger);
+    $controller->setStringTranslation($this->getStringTranslationStub());
+    $expected =
+      $this->t('You are logged in.') .
+      '<br>' .
+      $this->t('You are special.');
+    $this->assertEquals($expected, $controller->getMessageForUser($this->user));
+  }
+
+  /**
+   * Confirms controller message is correct for users with yet another privs.
+   *
+   * @covers \Drupal\my_testing_module\Controller\MyMessageController::getMessageForUser
+   */
+  public function testGetMessageForSuperSecretPrivilegeIsCorrect() {
+    $map = [
+      ['my super secret privilege', FALSE],
+      ['yet another privilege', TRUE],
+    ];
+    $this->user->expects($this->exactly(2))
+      ->method('hasPermission')
+      ->withConsecutive(
+          [$this->equalTo('my super secret privilege')],
+          [$this->equalTo('yet another privilege')],
+        )
+      ->will($this->returnValueMap($map));
+    $controller = new MyMessageController($this->user, $this->config_factory, $this->logger);
+    $controller->setStringTranslation($this->getStringTranslationStub());
+    $expected =
+      $this->t('You are logged in.') .
+      '<br>' .
+      $this->t('You have yet another privilege.');
+    $this->assertEquals($expected, $controller->getMessageForUser($this->user));
+  }
+
+  /**
+   * Confirms controller message is correct for users with all privs.
+   *
+   * @covers \Drupal\my_testing_module\Controller\MyMessageController::getMessageForUser
+   */
+  public function testGetMessageForAdminsIsCorrect() {
+    $map = [
+      ['my super secret privilege', TRUE],
+      ['yet another privilege', TRUE],
+    ];
+    $this->user->expects($this->exactly(2))
+      ->method('hasPermission')
+      ->withConsecutive(
+          [$this->equalTo('my super secret privilege')],
+          [$this->equalTo('yet another privilege')],
+        )
+      ->will($this->returnValueMap($map));
+    $controller = new MyMessageController($this->user, $this->config_factory, $this->logger);
+    $controller->setStringTranslation($this->getStringTranslationStub());
+    $expected =
+      $this->t('You are logged in.') .
+      '<br>' .
+      $this->t('You are special.') .
+      '<br>' .
+      $this->t('You have yet another privilege.');
+    $this->assertEquals($expected, $controller->getMessageForUser($this->user));
+  }
+
+  /**
+   * Confirms controller message is correct for users without privs.
+   *
+   * @covers \Drupal\my_testing_module\Controller\MyMessageController::getMessageForUser
+   */
+  public function testGetMessageForUnprivilegedUsersIsCorrect() {
+    $map = [
+      ['my super secret privilege', FALSE],
+      ['yet another privilege', FALSE],
+    ];
+    $this->user->expects($this->exactly(2))
+      ->method('hasPermission')
+      ->withConsecutive(
+          [$this->equalTo('my super secret privilege')],
+          [$this->equalTo('yet another privilege')],
+        )
+      ->will($this->returnValueMap($map));
+    $controller = new MyMessageController($this->user, $this->config_factory, $this->logger);
+    $controller->setStringTranslation($this->getStringTranslationStub());
+    $expected =
+      $this->t('You are logged in.');
+    $this->assertEquals($expected, $controller->getMessageForUser($this->user));
+  }
+
+
 }
