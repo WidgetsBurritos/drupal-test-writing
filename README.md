@@ -2,6 +2,10 @@
 
 This is a test D9 site which can be used for practicing test writing and running. This is to be used in tandem with the [Drupal Testing Crash Course](https://2020.drupalcampcolorado.org/trainings/drupal-testing-crash-course) training at DrupalCamp Colorado.
 
+**Download the presentation slides:**
+- [Powerpoint](Presentation-Slides.pptx)
+- [PDF](Presentation-Slides.pdf)
+
 ## Dependencies
 
 - Docker 18.06+ - [Instructions for installing Docker on your local system](https://docs.docker.com/engine/install/)
